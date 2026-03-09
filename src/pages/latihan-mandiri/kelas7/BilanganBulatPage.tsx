@@ -5,12 +5,12 @@ import { BookOpen, ChevronRight } from "lucide-react";
 import { playPopSound } from "@/hooks/useAudio";
 
 const subtopics = [
-  "PENJUMLAHAN BILANGAN BULAT",
-  "PENGURANGAN BILANGAN BULAT",
-  "PERKALIAN BILANGAN BULAT",
-  "PEMBAGIAN BILANGAN BULAT",
-  "OPERASI HITUNG CAMPURAN BILANGAN BULAT",
-  "KPK DAN FPB",
+  { name: "PENJUMLAHAN BILANGAN BULAT", path: "/latihan-mandiri/kelas-7/bilangan-bulat/penjumlahan" },
+  { name: "PENGURANGAN BILANGAN BULAT", path: "/latihan-mandiri/kelas-7/bilangan-bulat/pengurangan" },
+  { name: "PERKALIAN BILANGAN BULAT", path: "/latihan-mandiri/kelas-7/bilangan-bulat/perkalian" },
+  { name: "PEMBAGIAN BILANGAN BULAT", path: "/latihan-mandiri/kelas-7/bilangan-bulat/pembagian" },
+  { name: "OPERASI HITUNG CAMPURAN BILANGAN BULAT", path: "/latihan-mandiri/kelas-7/bilangan-bulat/operasi-campuran" },
+  { name: "KPK DAN FPB", path: "/latihan-mandiri/kelas-7/bilangan-bulat/kpk-fpb" },
 ];
 
 const BilanganBulatPage = () => {
@@ -30,15 +30,15 @@ const BilanganBulatPage = () => {
         <div className="flex flex-col gap-3 animate-slide-up">
           {subtopics.map((subtopic, i) => (
             <button
-              key={subtopic}
-              onClick={() => playPopSound()}
+              key={subtopic.name}
+              onClick={() => { playPopSound(); navigate(subtopic.path); }}
               className="group flex items-center gap-4 bg-card/80 backdrop-blur border border-border rounded-xl px-5 py-4
                 hover:border-accent/60 transition-all duration-300
                 cursor-pointer text-left animate-slide-up"
               style={{ animationDelay: `${i * 0.03}s` }}
             >
               <ChevronRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
-              <span className="font-body text-sm text-white">{subtopic}</span>
+              <span className="font-body text-sm text-white">{subtopic.name}</span>
             </button>
           ))}
         </div>

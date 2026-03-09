@@ -34,6 +34,12 @@ import LatihanMandiriKelas9Page from "./pages/LatihanMandiriKelas9Page";
 
 // Kelas 7 Topic Pages
 import BilanganBulatK7Page from "./pages/latihan-mandiri/kelas7/BilanganBulatPage";
+import PenjumlahanBilanganBulatK7Page from "./pages/latihan-mandiri/kelas7/bilangan-bulat/PenjumlahanPage";
+import PenguranganBilanganBulatK7Page from "./pages/latihan-mandiri/kelas7/bilangan-bulat/PenguranganPage";
+import PerkalianBilanganBulatK7Page from "./pages/latihan-mandiri/kelas7/bilangan-bulat/PerkalianPage";
+import PembagianBilanganBulatK7Page from "./pages/latihan-mandiri/kelas7/bilangan-bulat/PembagianPage";
+import OperasiCampuranBilanganBulatK7Page from "./pages/latihan-mandiri/kelas7/bilangan-bulat/OperasiCampuranPage";
+import KPKFPBBilanganBulatK7Page from "./pages/latihan-mandiri/kelas7/bilangan-bulat/KPKFPBPage";
 import BilanganRasionalK7Page from "./pages/latihan-mandiri/kelas7/BilanganRasionalPage";
 import AljabarK7Page from "./pages/latihan-mandiri/kelas7/AljabarPage";
 import PLSVPtLSVK7Page from "./pages/latihan-mandiri/kelas7/PLSVPtLSVPage";
@@ -191,7 +197,13 @@ const AppInner = () => {
       <Route path="/latihan-mandiri/kelas-9" element={<LatihanMandiriKelas9Page />} />
       
       {/* Kelas 7 Topic Routes */}
-      <Route path="/latihan-mandiri/kelas-7/bilangan-bulat" element={<BilanganBulatK7Page />} />
+<Route path="/latihan-mandiri/kelas-7/bilangan-bulat" element={<BilanganBulatK7Page />} />
+      <Route path="/latihan-mandiri/kelas-7/bilangan-bulat/penjumlahan" element={<PenjumlahanBilanganBulatK7Page />} />
+      <Route path="/latihan-mandiri/kelas-7/bilangan-bulat/pengurangan" element={<PenguranganBilanganBulatK7Page />} />
+      <Route path="/latihan-mandiri/kelas-7/bilangan-bulat/perkalian" element={<PerkalianBilanganBulatK7Page />} />
+      <Route path="/latihan-mandiri/kelas-7/bilangan-bulat/pembagian" element={<PembagianBilanganBulatK7Page />} />
+      <Route path="/latihan-mandiri/kelas-7/bilangan-bulat/operasi-campuran" element={<OperasiCampuranBilanganBulatK7Page />} />
+      <Route path="/latihan-mandiri/kelas-7/bilangan-bulat/kpk-fpb" element={<KPKFPBBilanganBulatK7Page />} />
       <Route path="/latihan-mandiri/kelas-7/bilangan-rasional" element={<BilanganRasionalK7Page />} />
       <Route path="/latihan-mandiri/kelas-7/aljabar" element={<AljabarK7Page />} />
       <Route path="/latihan-mandiri/kelas-7/plsv-ptlsv" element={<PLSVPtLSVK7Page />} />
