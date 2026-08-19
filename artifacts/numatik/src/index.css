@@ -122,6 +122,29 @@
   color: var(--text-primary) !important;
 }
 
+/* These exercise cards use inline rgba backgrounds, so class-only overrides
+   cannot reach them. Keep the light themes genuinely light and readable. */
+[data-theme="light"] .animation-submaterial-route [style*="background"],
+[data-theme="white"] .animation-submaterial-route [style*="background"],
+[data-theme="forest"] .animation-submaterial-route [style*="background"],
+[data-theme="sunset"] .animation-submaterial-route [style*="background"] {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .animation-submaterial-route [style*="border"] {
+  border-color: var(--border) !important;
+}
+[data-theme="white"] .animation-submaterial-route [style*="border"] {
+  border-color: var(--border) !important;
+}
+[data-theme="forest"] .animation-submaterial-route [style*="border"] {
+  border-color: var(--border) !important;
+}
+[data-theme="sunset"] .animation-submaterial-route [style*="border"] {
+  border-color: var(--border) !important;
+}
+
 [data-theme="light"] .animation-submaterial-route [class*="text-white"],
 [data-theme="white"] .animation-submaterial-route [class*="text-white"],
 [data-theme="forest"] .animation-submaterial-route [class*="text-white"],
