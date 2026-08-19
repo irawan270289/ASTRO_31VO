@@ -502,12 +502,17 @@ const latihanDasar: LatihanSoal[] = [
   },
 ];
 
+const nomorSPLDVDihapus = new Set([5, 11, 13, 14, 16, 18, 21, 22, 27, 31]);
+const latihanDasarSPLDV = latihanDasar
+  .filter((soal) => !nomorSPLDVDihapus.has(soal.no))
+  .map((soal, index) => ({ ...soal, no: index + 1 }));
+
 const SPLDVPage = () => (
   <TKAPemantapanLayout
     title="SISTEM PERSAMAAN LINEAR DUA VARIABEL"
     materiSections={materiSections}
     contohSoal={contohSoal}
-    latihanDasar={latihanDasar}
+    latihanDasar={latihanDasarSPLDV}
   />
 );
 

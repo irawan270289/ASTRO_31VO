@@ -594,11 +594,17 @@ const latihanDasarTkaLama: LatihanSoal[] = [
   },
 ];
 
-export const bankSoalTeoremaPythagoras = latihanDasarOlimpiade.map((soal) => ({
-  ...soal,
-  pembahasan: teoremaPythagorasDasarPembahasan[soal.no],
-  gambar: latihanDasarGambarMap[soal.no],
-}));
+const nomorPythagorasDihapus = new Set([1, 2, 8, 9, 13, 15, 17, 18, 21, 24, 25, 33, 34]);
+const latihanDasarPythagoras = latihanDasarOlimpiade
+  .filter((soal) => !nomorPythagorasDihapus.has(soal.no))
+  .map((soal, index) => ({
+    ...soal,
+    no: index + 1,
+    pembahasan: teoremaPythagorasDasarPembahasan[soal.no],
+    gambar: latihanDasarGambarMap[soal.no],
+  }));
+
+export const bankSoalTeoremaPythagoras = latihanDasarPythagoras;
 
 const TeoremaPage = () => (
   <TKAPemantapanLayout
@@ -606,10 +612,7 @@ const TeoremaPage = () => (
     materiSections={materiSections}
     contohSoal={contohSoal}
     soalSvgMap={contohSvgMap}
-  latihanDasar={latihanDasarOlimpiade.map((soal) => ({
-    ...soal,
-    pembahasan: teoremaPythagorasDasarPembahasan[soal.no],
-  }))}
+  latihanDasar={latihanDasarPythagoras}
   gambarMap={latihanDasarGambarMap}
   />
 );
