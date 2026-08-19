@@ -390,12 +390,17 @@ const latihanDasar: LatihanSoal[] = [
   },
 ];
 
+const nomorAljabarDihapus = new Set([1, 2, 8, 9, 13, 15, 17, 18, 21, 24, 25, 33, 34]);
+const latihanDasarAljabar = latihanDasar
+  .filter((soal) => !nomorAljabarDihapus.has(soal.no))
+  .map((soal, index) => ({ ...soal, no: index + 1 }));
+
 const AljabarPage = () => (
   <TKAPemantapanLayout
     title="BENTUK ALJABAR"
     materiSections={materiSections}
     contohSoal={contohSoal}
-    latihanDasar={latihanDasar}
+    latihanDasar={latihanDasarAljabar}
   />
 );
 
