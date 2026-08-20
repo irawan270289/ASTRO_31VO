@@ -658,7 +658,7 @@ const Soal23BRSDSvg = () => (
     <line x1="70"  y1="198" x2="70"  y2="139" stroke="#374151" strokeWidth="1.2" strokeDasharray="4,3" />
     <line x1="100" y1="250" x2="100" y2="178" stroke="#374151" strokeWidth="1.2" strokeDasharray="4,3" />
 
-    {/* ── Visible lateral edges (A-P, B-Q, F-U) ── */}
+    {/* ── Visible lateral edges (A-P, B-Q, F-U) ���─ */}
     <line x1="190" y1="198" x2="190" y2="171" stroke="#e2e8f0" strokeWidth="1.8" />
     <line x1="160" y1="146" x2="160" y2="132" stroke="#e2e8f0" strokeWidth="1.8" />
     <line x1="160" y1="250" x2="160" y2="194" stroke="#e2e8f0" strokeWidth="1.8" />
@@ -757,7 +757,7 @@ const OlimpiadeBangunRuangSisiDatarPage = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center gradient-space overflow-hidden">
+    <div className="olympiad-theme-route relative min-h-screen flex flex-col items-center gradient-space overflow-hidden">
       <ShapeStyles />
       <Starfield />
       <PageNavigation />

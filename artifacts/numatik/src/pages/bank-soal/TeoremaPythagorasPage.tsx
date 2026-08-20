@@ -1,5 +1,17 @@
 import { ChevronDown, ChevronUp, Image as ImageIcon } from "lucide-react";
 import { useState } from "react";
+import "katex/dist/katex.min.css";
+import { InlineMath } from "react-katex";
+
+const renderWithLatex = (text: string) => {
+  const parts = text.split(/(\$[^$]+\$)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("$") && part.endsWith("$")) {
+      return <InlineMath key={index} math={part.slice(1, -1)} />;
+    }
+    return <span key={index}>{part}</span>;
+  });
+};
 import { useNavigate } from "react-router-dom";
 import PageNavigation from "@/components/PageNavigation";
 import { bankSoalTeoremaPythagoras } from "@/pages/tka/modul-pemantapan/TeoremaPage";
@@ -7,8 +19,8 @@ import { bankSoalTeoremaPythagoras } from "@/pages/tka/modul-pemantapan/TeoremaP
 type Question = { no: number; text: string; options: string[]; answer: string; explanation: string; image?: { src: string; alt: string } };
 
 const questions: Question[] = [
-  { no: 1, text: "Bilangan-bilangan berikut yang memenuhi teorema Pythagoras adalah sebagai berikut, kecuali ....", options: ["a. 3, 4, dan 5", "b. 6, 8, dan 10", "c. 5, 12, dan 13", "d. 6, 8, dan 16"], answer: "d", explanation: "3² + 4² = 5², 6² + 8² = 10², dan 5² + 12² = 13². Namun, 6² + 8² = 10², bukan 16²." },
-  { no: 2, text: "Sisi sebuah segitiga siku-siku yang memiliki panjang sisi alas 21 cm dan tinggi 20 cm adalah ....", options: ["a. 27 cm", "b. 28 cm", "c. 29 cm", "d. 30 cm"], answer: "c", explanation: "Sisi miring = √(21² + 20²) = √841 = 29 cm." },
+  { no: 1, text: "Bilangan-bilangan berikut yang memenuhi teorema Pythagoras adalah sebagai berikut, kecuali ....", options: ["a. 3, 4, dan 5", "b. 6, 8, dan 10", "c. 5, 12, dan 13", "d. 6, 8, dan 16"], answer: "d", explanation: "$3^2 + 4^2 = 5^2$, $6^2 + 8^2 = 10^2$, dan $5^2 + 12^2 = 13^2$. Namun, $6^2 + 8^2 = 10^2$, bukan $16^2$." },
+  { no: 2, text: "Sisi sebuah segitiga siku-siku yang memiliki panjang sisi alas 21 cm dan tinggi 20 cm adalah ....", options: ["a. 27 cm", "b. 28 cm", "c. 29 cm", "d. 30 cm"], answer: "c", explanation: "Sisi miring = $\sqrt{21^2 + 20^2} = \sqrt{841} = 29\text{ cm}$." },
   { no: 3, text: "Sebuah segitiga siku-siku memiliki sisi miring 12 cm. Jika panjang alas segitiga adalah 8 cm, maka tinggi segitiga tersebut adalah ....", options: ["a. 20 cm", "b. 20 cm", "c. 80 cm", "d. 80 cm"], answer: "a", explanation: "Tinggi = √(12² − 8²) = √80 = 4√5 cm. Pilihan pada soal sumber memuat angka yang sama, sehingga perlu diperiksa kembali." },
   { no: 4, text: "Perhatikan gambar di bawah ini. Nilai x pada segitiga siku-siku ABC adalah ....", options: ["a. √269", "b. √296", "c. √69", "d. √96"], answer: "c", explanation: "Gunakan teorema Pythagoras pada segitiga ABC: x² = 13² − 10² = 69, sehingga x = √69.", image: { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-3f8ifPwGEjKkiArBeQcLWdCE8qc1MQ.png", alt: "Segitiga siku-siku ABC dengan alas 10 cm, sisi miring 13 cm, dan tinggi x" } },
   { no: 5, text: "Perhatikan gambar di bawah ini. Dari segitiga PQR tersebut berlaku hubungan berikut, kecuali ....", options: ["a. q² = r² + t²", "b. t² = q² − r²", "c. t² = p² − s²", "d. s² = t² − p²"], answer: "d", explanation: "Pada segitiga PRS berlaku q² = r² + t² dan pada segitiga RSQ berlaku p² = s² + t². Jadi hubungan s² = t² − p² tidak benar." },
@@ -23,11 +35,11 @@ function QuestionCard({ question }: { question: Question }) {
   const [open, setOpen] = useState(false);
   return <article className="rounded-2xl border border-border/60 bg-card/60 p-5 shadow-lg backdrop-blur-sm">
     <div className="mb-3 flex items-center justify-between gap-3"><span className="rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary">Soal {question.no}</span>{question.image && <span className="flex items-center gap-1 text-xs text-muted-foreground"><ImageIcon className="h-4 w-4" /> Bergambar</span>}</div>
-    <p className="mb-4 text-base leading-7 text-foreground">{question.text}</p>
+    <p className="mb-4 text-base leading-7 text-foreground">{renderWithLatex(question.text)}</p>
     {question.image && <img src={question.image.src} alt={question.image.alt} className="mb-4 mx-auto max-h-64 w-auto max-w-full rounded-lg border border-border bg-background object-contain" />}
-    <div className="grid gap-2 text-sm leading-6 text-muted-foreground">{question.options.map((option) => <div key={option}>{option}</div>)}</div>
+    <div className="grid gap-2 text-sm leading-6 text-muted-foreground">{question.options.map((option) => <div key={option}>{renderWithLatex(option)}</div>)}</div>
     <button type="button" onClick={() => setOpen((value) => !value)} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/20">{open ? "Sembunyikan Pembahasan" : "Lihat Pembahasan"}{open ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}</button>
-    {open && <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-7"><p className="font-semibold text-primary">Jawaban: {question.answer}</p><p className="mt-2 whitespace-pre-line text-muted-foreground">{question.explanation}</p></div>}
+    {open && <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-7"><p className="font-semibold text-primary">Jawaban: {question.answer}</p><p className="mt-2 whitespace-pre-line text-muted-foreground">{renderWithLatex(question.explanation)}</p></div>}
   </article>;
 }
 
@@ -37,7 +49,7 @@ function TkaQuestionCard({ question, index }: { question: (typeof bankSoalTeorem
     <div className="mb-3 flex items-center justify-between"><span className="rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary">Soal {index + 11}</span><span className="text-xs text-muted-foreground">Dari Modul Pemantapan</span></div>
     <p className="mb-4 text-base leading-7 text-foreground">{question.soal}</p>
     {question.gambar && <div className="mb-4 overflow-x-auto">{question.gambar}</div>}
-    {question.options && <div className="grid gap-2 text-sm leading-6 text-muted-foreground">{question.options.map((option) => <div key={option}>{option}</div>)}</div>}
+    {question.options && <div className="grid gap-2 text-sm leading-6 text-muted-foreground">{question.options.map((option) => <div key={option}>{renderWithLatex(option)}</div>)}</div>}
     {question.pernyataan && <div className="grid gap-2 text-sm leading-6 text-muted-foreground">{question.pernyataan.map((item) => <div key={item}>{item}</div>)}</div>}
     <button type="button" onClick={() => setOpen((value) => !value)} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/20">{open ? "Sembunyikan Pembahasan" : "Lihat Pembahasan"}{open ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}</button>
     {open && <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-7"><p className="font-semibold text-primary">Jawaban: {question.jawaban ?? question.jawabanBS?.join(", ")}</p><p className="mt-2 whitespace-pre-line text-muted-foreground">{question.pembahasan}</p></div>}
