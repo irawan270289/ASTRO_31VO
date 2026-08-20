@@ -316,7 +316,7 @@ const ShapeSection = ({ shape }: { shape: typeof shapes[0] }) => {
   );
 };
 
-/* ═════════════════���════��═══════════════════════
+/* ═════════════════�����════��═══════════════════════
    DATA
 ══════════════════════════════════════════════ */
 const shapes = [
@@ -499,7 +499,7 @@ const OlimpiadeBangunRuangSisiLengkungPage = () => {
   ];
 
   return (
-    <div className="relative min-h-screen flex flex-col gradient-space overflow-hidden">
+    <div className="olympiad-theme-route relative min-h-screen flex flex-col gradient-space overflow-hidden">
       <Starfield />
       <PageNavigation />
 

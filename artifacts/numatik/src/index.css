@@ -88,6 +88,43 @@
 
 /* ── Theme-aware overrides for hardcoded legacy components ── */
 
+/* Olympiad content pages: readable surfaces for light themes only. */
+[data-theme="light"] .olympiad-theme-route,
+[data-theme="white"] .olympiad-theme-route,
+[data-theme="forest"] .olympiad-theme-route,
+[data-theme="sunset"] .olympiad-theme-route {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .olympiad-theme-route [class*="bg-white\/"],
+[data-theme="white"] .olympiad-theme-route [class*="bg-white\/"],
+[data-theme="forest"] .olympiad-theme-route [class*="bg-white\/"],
+[data-theme="sunset"] .olympiad-theme-route [class*="bg-white\/"],
+[data-theme="light"] .olympiad-theme-route [class*="bg-slate-9"],
+[data-theme="white"] .olympiad-theme-route [class*="bg-slate-9"],
+[data-theme="forest"] .olympiad-theme-route [class*="bg-slate-9"],
+[data-theme="sunset"] .olympiad-theme-route [class*="bg-slate-9"],
+[data-theme="light"] .olympiad-theme-route [class*="bg-amber-9"],
+[data-theme="white"] .olympiad-theme-route [class*="bg-amber-9"],
+[data-theme="forest"] .olympiad-theme-route [class*="bg-amber-9"],
+[data-theme="sunset"] .olympiad-theme-route [class*="bg-amber-9"] {
+  background-color: var(--bg-card) !important;
+}
+
+[data-theme="light"] .olympiad-theme-route [class*="text-white"],
+[data-theme="white"] .olympiad-theme-route [class*="text-white"],
+[data-theme="forest"] .olympiad-theme-route [class*="text-white"],
+[data-theme="sunset"] .olympiad-theme-route [class*="text-white"] {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .olympiad-theme-route [class*="border-white"],
+[data-theme="white"] .olympiad-theme-route [class*="border-white"],
+[data-theme="forest"] .olympiad-theme-route [class*="border-white"],
+[data-theme="sunset"] .olympiad-theme-route [class*="border-white"] {
+  border-color: var(--border) !important;
+}
+
 /* Buku Animasi Matematik submateri: keep the light themes readable without
    changing the space theme (data-theme="dark"). */
 [data-theme="light"] .animation-submaterial-route,
@@ -904,7 +941,7 @@
 .animate-pulse-scale {
   animation: pulse-scale 1.5s ease-in-out infinite;
 }
-/* ── Numatik theme utility classes ──────────────────────────────────── */
+/* ── Numatik theme utility classes ───────────────���──────────────────── */
 .btn-theme {
   background: var(--btn-bg);
   color: var(--text-primary);
