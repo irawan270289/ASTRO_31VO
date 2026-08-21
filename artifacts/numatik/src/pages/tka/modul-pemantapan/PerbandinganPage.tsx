@@ -1,7 +1,7 @@
 import TKAPemantapanLayout from "@/components/tka/TKAPemantapanLayout";
 import type { MateriSection, LatihanSoal } from "@/components/tka/TKAPemantapanLayout";
-import { InlineMath, BlockMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
+const InlineMath = ({ math }: { math: string }) => <span className="font-mono text-inherit">{math}</span>;
+const BlockMath = ({ math }: { math: string }) => <div className="font-mono text-inherit text-center py-2">{math}</div>;
 
 /* ── Hardcoded ID strings (no i18n needed for TKA page) ── */
 
@@ -24,18 +24,18 @@ const SenilaiRingkasan = (
             <table className="w-full font-body text-sm border-collapse text-center">
               <thead>
                 <tr className="bg-green-600/30">
-                  <th className="px-4 py-2 text-green-200 border border-green-500/40 font-bold"><InlineMath math="v_1" /></th>
-                  <th className="px-4 py-2 text-green-200 border border-green-500/40 font-bold"><InlineMath math="v_2" /></th>
+                  <th className="px-4 py-2 text-green-200 border border-green-500/40 font-bold"><InlineMath throwOnError={false} math="v_1" /></th>
+                  <th className="px-4 py-2 text-green-200 border border-green-500/40 font-bold"><InlineMath throwOnError={false} math="v_2" /></th>
                 </tr>
               </thead>
               <tbody className="text-white/80">
                 <tr className="bg-slate-800/40">
-                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="a" /></td>
-                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="b" /></td>
+                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath throwOnError={false} math="a" /></td>
+                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath throwOnError={false} math="b" /></td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="c" /></td>
-                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="d" /></td>
+                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath throwOnError={false} math="c" /></td>
+                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath throwOnError={false} math="d" /></td>
                 </tr>
               </tbody>
             </table>
@@ -50,26 +50,26 @@ const SenilaiRingkasan = (
               </svg>
               <div className="absolute flex flex-col items-center gap-1" style={{ left: '10%', top: 8 }}>
                 <div className="bg-green-600/40 border-2 border-green-400/70 rounded-lg px-5 py-3 text-center shadow-lg shadow-green-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="a" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath throwOnError={false} math="a" /></span>
                 </div>
                 <span className="font-body text-[10px] text-green-300 font-semibold">V₁ · A</span>
               </div>
               <div className="absolute flex flex-col items-center gap-1" style={{ right: '10%', top: 8 }}>
                 <div className="bg-green-600/40 border-2 border-green-400/70 rounded-lg px-5 py-3 text-center shadow-lg shadow-green-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="c" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath throwOnError={false} math="c" /></span>
                 </div>
                 <span className="font-body text-[10px] text-green-300 font-semibold">V₂ · A</span>
               </div>
               <div className="absolute flex flex-col items-center gap-1" style={{ left: '10%', bottom: 8 }}>
                 <span className="font-body text-[10px] text-blue-300 font-semibold">V₁ · B</span>
                 <div className="bg-blue-600/40 border-2 border-blue-400/70 rounded-lg px-5 py-3 text-center shadow-lg shadow-blue-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="b" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath throwOnError={false} math="b" /></span>
                 </div>
               </div>
               <div className="absolute flex flex-col items-center gap-1" style={{ right: '10%', bottom: 8 }}>
                 <span className="font-body text-[10px] text-blue-300 font-semibold">V₂ · B</span>
                 <div className="bg-blue-600/40 border-2 border-blue-400/70 rounded-lg px-5 py-3 text-center shadow-lg shadow-blue-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="d" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath throwOnError={false} math="d" /></span>
                 </div>
               </div>
             </div>
@@ -78,11 +78,11 @@ const SenilaiRingkasan = (
               <span className="flex items-center gap-1"><span className="inline-block w-5 border-t-2 border-dashed border-orange-400"></span><span className="text-orange-300">a₂ × b₁</span></span>
             </div>
             <div className="w-full border-t border-white/10 pt-3 text-center">
-              <BlockMath math="ad = cb" />
+              <BlockMath throwOnError={false} math="ad = cb" />
             </div>
           </div>
           <p className="font-body text-xs text-white/60">
-            Di mana <InlineMath math="a" /> dan <InlineMath math="b" /> adalah dua besaran yang bergerak searah (senilai).
+            Di mana <InlineMath throwOnError={false} math="a" /> dan <InlineMath throwOnError={false} math="b" /> adalah dua besaran yang bergerak searah (senilai).
           </p>
         </div>
         <div className="overflow-x-auto">
@@ -119,18 +119,18 @@ const SenilaiRingkasan = (
             <table className="w-full font-body text-sm border-collapse text-center">
               <thead>
                 <tr className="bg-red-600/30">
-                  <th className="px-4 py-2 text-red-200 border border-red-500/40 font-bold"><InlineMath math="v_1" /></th>
-                  <th className="px-4 py-2 text-red-200 border border-red-500/40 font-bold"><InlineMath math="v_2" /></th>
+                  <th className="px-4 py-2 text-red-200 border border-red-500/40 font-bold"><InlineMath throwOnError={false} math="v_1" /></th>
+                  <th className="px-4 py-2 text-red-200 border border-red-500/40 font-bold"><InlineMath throwOnError={false} math="v_2" /></th>
                 </tr>
               </thead>
               <tbody className="text-white/80">
                 <tr className="bg-slate-800/40">
-                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="a" /></td>
-                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="b" /></td>
+                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath throwOnError={false} math="a" /></td>
+                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath throwOnError={false} math="b" /></td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="c" /></td>
-                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="d" /></td>
+                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath throwOnError={false} math="c" /></td>
+                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath throwOnError={false} math="d" /></td>
                 </tr>
               </tbody>
             </table>
@@ -140,29 +140,29 @@ const SenilaiRingkasan = (
             <div className="flex flex-col gap-3 w-full max-w-xs">
               <div className="flex items-center gap-2">
                 <div className="bg-green-600/40 border-2 border-green-400/70 rounded-lg px-5 py-3 text-center flex-1 shadow-lg shadow-green-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="a" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath throwOnError={false} math="a" /></span>
                 </div>
                 <div className="flex-1 border-t-4 border-dashed border-yellow-400 relative flex items-center justify-center">
                   <span className="absolute font-body text-[9px] text-yellow-300 -top-3">sejajar</span>
                 </div>
                 <div className="bg-green-600/40 border-2 border-green-400/70 rounded-lg px-5 py-3 text-center flex-1 shadow-lg shadow-green-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="c" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath throwOnError={false} math="c" /></span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <div className="bg-blue-600/40 border-2 border-blue-400/70 rounded-lg px-5 py-3 text-center flex-1 shadow-lg shadow-blue-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="b" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath throwOnError={false} math="b" /></span>
                 </div>
                 <div className="flex-1 border-t-4 border-dashed border-yellow-400 relative flex items-center justify-center">
                   <span className="absolute font-body text-[9px] text-yellow-300 -top-3">sejajar</span>
                 </div>
                 <div className="bg-blue-600/40 border-2 border-blue-400/70 rounded-lg px-5 py-3 text-center flex-1 shadow-lg shadow-blue-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="d" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath throwOnError={false} math="d" /></span>
                 </div>
               </div>
             </div>
             <div className="w-full border-t border-white/10 pt-3 text-center">
-              <BlockMath math="ab = cd" />
+              <BlockMath throwOnError={false} math="ab = cd" />
             </div>
           </div>
           <p className="font-body text-xs text-white/60">
@@ -210,11 +210,11 @@ const SenilaiRingkasan = (
         <div className="bg-slate-800/50 rounded-lg p-4">
           <p className="font-body text-sm text-white/60 text-xs">Contoh singkat: Proyek 20 hari oleh 15 pekerja. Setelah 8 hari, libur 4 hari. Berapa tambahan pekerja?</p>
           <div className="mt-2 space-y-1 font-body text-sm text-white/80">
-            <p>Total beban = <InlineMath math="20 \times 15 = 300" /> satuan</p>
-            <p>Selesai = <InlineMath math="8 \times 15 = 120" /> satuan → Sisa = <InlineMath math="300 - 120 = 180" /></p>
-            <p>Sisa waktu = <InlineMath math="20 - 8 - 4 = 8" /> hari</p>
-            <p>Pekerja dibutuhkan = <InlineMath math="180 \div 8 = 22{,}5 \approx 23" /> orang</p>
-            <p className="text-orange-300 font-semibold">Tambahan = <InlineMath math="23 - 15 = 8" /> orang</p>
+            <p>Total beban = <InlineMath throwOnError={false} math="20 \times 15 = 300" /> satuan</p>
+            <p>Selesai = <InlineMath throwOnError={false} math="8 \times 15 = 120" /> satuan → Sisa = <InlineMath throwOnError={false} math="300 - 120 = 180" /></p>
+            <p>Sisa waktu = <InlineMath throwOnError={false} math="20 - 8 - 4 = 8" /> hari</p>
+            <p>Pekerja dibutuhkan = <InlineMath throwOnError={false} math="180 \div 8 = 22{,}5 \approx 23" /> orang</p>
+            <p className="text-orange-300 font-semibold">Tambahan = <InlineMath throwOnError={false} math="23 - 15 = 8" /> orang</p>
           </div>
         </div>
       </div>
@@ -235,7 +235,7 @@ const BertingkatRingkasan = (
       <div className="px-5 pb-5 space-y-3">
         <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 space-y-3">
           <div className="bg-slate-900/50 rounded p-3">
-            <BlockMath math="\text{Nilai}_x = \frac{\text{rasio}_x}{\text{jumlah/selisih rasio}} \times \text{jumlah/selisih yang diketahui}" />
+            <BlockMath throwOnError={false} math="\text{Nilai}_x = \frac{\text{rasio}_x}{\text{jumlah/selisih rasio}} \times \text{jumlah/selisih yang diketahui}" />
           </div>
           <div className="grid grid-cols-2 gap-2 font-body text-xs text-white/70">
             <div className="bg-slate-800/50 rounded p-2">
@@ -262,8 +262,8 @@ const BertingkatRingkasan = (
           Perbandingan bertingkat <span className="text-white/50">(compound ratio)</span> adalah perbandingan yang menggabungkan dua perbandingan terpisah melalui satu variabel perantara yang sama.
         </p>
         <p className="font-body text-sm text-white/70">
-          Contoh: <InlineMath math="A : B = 2 : 3" /> dan <InlineMath math="B : C = 4 : 5" /><br />
-          Karena B menjadi perantara, keduanya digabung menjadi <InlineMath math="A : B : C = 8 : 12 : 15" />
+          Contoh: <InlineMath throwOnError={false} math="A : B = 2 : 3" /> dan <InlineMath throwOnError={false} math="B : C = 4 : 5" /><br />
+          Karena B menjadi perantara, keduanya digabung menjadi <InlineMath throwOnError={false} math="A : B : C = 8 : 12 : 15" />
         </p>
         <div className="bg-slate-800/50 rounded-lg p-4">
           <div className="space-y-3 font-body text-sm text-white/80">
@@ -295,12 +295,12 @@ const materiSections: MateriSection[] = [
   {
     heading: "B. Jenis-Jenis Perbandingan",
     content: ``,
-    jsxAfter: SenilaiRingkasan,
+    jsxAfter: <SenilaiRingkasan />,
   },
   {
     heading: "C. Proporsi dan Perbandingan Bertingkat",
     content: ``,
-    jsxAfter: BertingkatRingkasan,
+    jsxAfter: <BertingkatRingkasan />,
   },
   {
     heading: "C. Skala",

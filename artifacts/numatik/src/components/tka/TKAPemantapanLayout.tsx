@@ -93,7 +93,7 @@ const renderWithLatex = (text: string) => {
   const parts = text.split(/(\$[^$]+\$)/g);
   return parts.map((part, index) => {
     if (part.startsWith('$') && part.endsWith('$')) {
-      return <InlineMath key={index} math={part.slice(1, -1)} />;
+      return <InlineMath key={index} math={part.slice(1, -1)} throwOnError={false} />;
     }
     return <span key={index}>{part}</span>;
   });
@@ -412,7 +412,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                 const type = soal.type ?? "pg";
                 const selected = selectedContohAnswers[soal.no];
                 const bsArr = pgkbsContohAnswers[soal.no] ?? Array(soal.pernyataan?.length ?? 3).fill(null);
-                const typeBadge = TYPE_BADGE[type];
+                const typeBadge = TYPE_BADGE[type] ?? TYPE_BADGE.pg;
 
                 return (
                   <div key={soal.no} className="relative rounded-2xl overflow-hidden"
@@ -700,7 +700,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                     ? selectedPGK.length === soal.jawabanPGK.length
                       && selectedPGK.every(index => soal.jawabanPGK?.includes(index))
                   : selected === soal.jawaban;
-                const typeBadge = TYPE_BADGE[type];
+                const typeBadge = TYPE_BADGE[type] ?? TYPE_BADGE.pg;
 
                 return (
                   <div key={soal.no} className="relative rounded-2xl overflow-hidden"
