@@ -30,12 +30,12 @@ const SenilaiRingkasan = (
               </thead>
               <tbody className="text-white/80">
                 <tr className="bg-slate-800/40">
-                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="a_1" /></td>
-                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="b_1" /></td>
+                    <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="a" /></td>
+                    <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="b" /></td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="a_2" /></td>
-                  <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="b_2" /></td>
+                    <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="c" /></td>
+                    <td className="px-4 py-2 border border-green-500/30 font-bold text-white"><InlineMath math="d" /></td>
                 </tr>
               </tbody>
             </table>
@@ -50,35 +50,35 @@ const SenilaiRingkasan = (
               </svg>
               <div className="absolute flex flex-col items-center gap-1" style={{ left: '10%', top: 8 }}>
                 <div className="bg-green-600/40 border-2 border-green-400/70 rounded-lg px-5 py-3 text-center shadow-lg shadow-green-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="a_1" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath math="a" /></span>
                 </div>
                 <span className="font-body text-[10px] text-green-300 font-semibold">V₁ · A</span>
               </div>
               <div className="absolute flex flex-col items-center gap-1" style={{ right: '10%', top: 8 }}>
                 <div className="bg-green-600/40 border-2 border-green-400/70 rounded-lg px-5 py-3 text-center shadow-lg shadow-green-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="a_2" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath math="b" /></span>
                 </div>
                 <span className="font-body text-[10px] text-green-300 font-semibold">V₂ · A</span>
               </div>
               <div className="absolute flex flex-col items-center gap-1" style={{ left: '10%', bottom: 8 }}>
                 <span className="font-body text-[10px] text-blue-300 font-semibold">V₁ · B</span>
                 <div className="bg-blue-600/40 border-2 border-blue-400/70 rounded-lg px-5 py-3 text-center shadow-lg shadow-blue-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="b_1" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath math="c" /></span>
                 </div>
               </div>
               <div className="absolute flex flex-col items-center gap-1" style={{ right: '10%', bottom: 8 }}>
                 <span className="font-body text-[10px] text-blue-300 font-semibold">V₂ · B</span>
                 <div className="bg-blue-600/40 border-2 border-blue-400/70 rounded-lg px-5 py-3 text-center shadow-lg shadow-blue-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="b_2" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath math="d" /></span>
                 </div>
               </div>
             </div>
             <div className="flex gap-4 text-[10px] font-body">
-              <span className="flex items-center gap-1"><span className="inline-block w-5 border-t-2 border-dashed border-yellow-400"></span><span className="text-yellow-300">a₁ × b₂</span></span>
-              <span className="flex items-center gap-1"><span className="inline-block w-5 border-t-2 border-dashed border-orange-400"></span><span className="text-orange-300">a₂ × b₁</span></span>
+                <span className="flex items-center gap-1"><span className="inline-block w-5 border-t-2 border-dashed border-yellow-400"></span><span className="text-yellow-300">a × d</span></span>
+                <span className="flex items-center gap-1"><span className="inline-block w-5 border-t-2 border-dashed border-orange-400"></span><span className="text-orange-300">c × b</span></span>
             </div>
             <div className="w-full border-t border-white/10 pt-3 text-center">
-              <BlockMath math="a_1 \times b_2 = a_2 \times b_1" />
+              <BlockMath math="ad = cb" />
             </div>
           </div>
           <p className="font-body text-xs text-white/60">
@@ -125,12 +125,12 @@ const SenilaiRingkasan = (
               </thead>
               <tbody className="text-white/80">
                 <tr className="bg-slate-800/40">
-                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="a_1" /></td>
-                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="b_1" /></td>
+                    <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="a" /></td>
+                    <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="b" /></td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="a_2" /></td>
-                  <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="b_2" /></td>
+                    <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="c" /></td>
+                    <td className="px-4 py-2 border border-red-500/30 font-bold text-white"><InlineMath math="d" /></td>
                 </tr>
               </tbody>
             </table>
@@ -140,29 +140,29 @@ const SenilaiRingkasan = (
             <div className="flex flex-col gap-3 w-full max-w-xs">
               <div className="flex items-center gap-2">
                 <div className="bg-green-600/40 border-2 border-green-400/70 rounded-lg px-5 py-3 text-center flex-1 shadow-lg shadow-green-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="a_1" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath math="a" /></span>
                 </div>
                 <div className="flex-1 border-t-4 border-dashed border-yellow-400 relative flex items-center justify-center">
                   <span className="absolute font-body text-[9px] text-yellow-300 -top-3">sejajar</span>
                 </div>
                 <div className="bg-green-600/40 border-2 border-green-400/70 rounded-lg px-5 py-3 text-center flex-1 shadow-lg shadow-green-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="a_2" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath math="b" /></span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <div className="bg-blue-600/40 border-2 border-blue-400/70 rounded-lg px-5 py-3 text-center flex-1 shadow-lg shadow-blue-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="b_1" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath math="c" /></span>
                 </div>
                 <div className="flex-1 border-t-4 border-dashed border-yellow-400 relative flex items-center justify-center">
                   <span className="absolute font-body text-[9px] text-yellow-300 -top-3">sejajar</span>
                 </div>
                 <div className="bg-blue-600/40 border-2 border-blue-400/70 rounded-lg px-5 py-3 text-center flex-1 shadow-lg shadow-blue-900/30">
-                  <span className="font-body font-bold text-white text-base"><InlineMath math="b_2" /></span>
+                  <span className="font-body font-bold text-white text-base"><InlineMath math="d" /></span>
                 </div>
               </div>
             </div>
             <div className="w-full border-t border-white/10 pt-3 text-center">
-              <BlockMath math="a_1 \times a_2 = b_1 \times b_2" />
+              <BlockMath math="ab = cd" />
             </div>
           </div>
           <p className="font-body text-xs text-white/60">
@@ -353,6 +353,32 @@ const latihanDasar: LatihanSoal[] = [
   { no: 35, soal: "Kontraktor memprediksi pembuatan jembatan selesai dalam $40\\text{ hari}$ dengan $15\\text{ pekerja}$. Setelah $10\\text{ hari}$ bekerja, proyek terhenti selama $6\\text{ hari}$ akibat kendala cuaca. Jika proyek harus selesai tepat sesuai jadwal semula, berapa tambahan pekerja yang dibutuhkan?", options: ["A. $3\\text{ orang}$", "B. $4\\text{ orang}$", "C. $5\\text{ orang}$", "D. $6\\text{ orang}$"], jawaban: "A", pembahasan: "Sisa waktu ideal $= 40 - 10 = 30\\text{ hari}$.\nSisa waktu nyata $= 30 - 6 = 24\\text{ hari}$.\nBeban kerja tersisa $= 30 \\times 15 = 450\\text{ hari-orang}$.\nPekerja dibutuhkan $= \\frac{450}{24} = 18{,}75 \\approx 18\\text{ orang}$.\nTambahan $= 18 - 15 = 3\\text{ orang}$ → Jawaban A" },
 ];
 
+const soalDihapus = new Set([4, 19, 21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]);
+
+const formatPembahasan = (soal: LatihanSoal) => {
+  const answer = soal.jawaban
+    ? `Pilihan ${soal.jawaban}`
+    : soal.jawabanBS
+      ? soal.jawabanBS.map((value, index) => `(${index + 1}) ${value}`).join(", ")
+      : "Sesuai hasil perhitungan";
+  const lowerText = (soal.pembahasan ?? "").toLowerCase();
+  const concept =
+    lowerText.includes("perbandingan senilai")
+      ? "Untuk perbandingan senilai, susun tabel V₁ | V₂ dengan baris a, b lalu c, d. Gunakan kali silang: ad = cb."
+      : lowerText.includes("perbandingan berbalik")
+        ? "Untuk perbandingan berbalik nilai, susun tabel V₁ | V₂ dengan baris a, b lalu c, d. Gunakan kali sejajar: ab = cd."
+        : "Tentukan informasi yang diketahui, pilih hubungan besaran yang tepat, lalu hitung secara berurutan.";
+  return `Jawaban: ${answer}\n\nTips dan Trik: ${concept}\n\nStep by Step Penyelesaian:\n${soal.pembahasan ?? "Kerjakan dengan menggunakan informasi pada soal."}`;
+};
+
+const latihanPerbandingan = latihanDasar
+  .filter((soal) => !soalDihapus.has(soal.no))
+  .map((soal, index) => ({
+    ...soal,
+    no: index + 1,
+    pembahasan: formatPembahasan(soal),
+  }));
+
 import type { LatihanSoal as LS } from "@/components/tka/TKAPemantapanLayout";
 
 const contohSoal: LS[] = [
@@ -419,8 +445,9 @@ const PerbandinganPage = () => (
   <TKAPemantapanLayout
     title="PERBANDINGAN"
     materiSections={materiSections}
-    latihanDasar={latihanDasar}
+    latihanDasar={latihanPerbandingan}
     contohSoal={contohSoal}
+    autoRevealOnAnswer
   />
 );
 

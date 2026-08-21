@@ -49,6 +49,7 @@ interface Props {
   soalSvgMap?: Record<string, React.ReactNode>;
   optionSvgMap?: Record<string, React.ReactNode>;
   gambarMap?: Record<number, React.ReactNode>;
+  autoRevealOnAnswer?: boolean;
 }
 
 const getGoogleDriveFileId = (value: string) => {
@@ -133,7 +134,7 @@ const TYPE_BADGE: Record<string, { label: string; color: string; bg: string; bor
   },
 };
 
-const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materiSections, latihanDasar, contohSoal, soalSvgMap, optionSvgMap, gambarMap }: Props) => {
+const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materiSections, latihanDasar, contohSoal, soalSvgMap, optionSvgMap, gambarMap, autoRevealOnAnswer = false }: Props) => {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const isLightTheme = theme !== "dark" && theme !== "ocean";
@@ -155,16 +156,37 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
     if (revealedAnswers.has(soalNo)) return;
     playPopSound();
     setSelectedAnswers(prev => ({ ...prev, [soalNo]: letter }));
+    if (autoRevealOnAnswer) {
+      setRevealedAnswers(prev => {
+        const next = new Set(prev);
+        next.add(soalNo);
+        return next;
+      });
+    }
   };
 
   const handleSelectBS = (soalNo: number, idx: number, val: "B" | "S", count: number) => {
     if (revealedAnswers.has(soalNo)) return;
     playPopSound();
+    const nextAnswers = (() => {
+      const current: ("B" | "S" | null)[] = pgkbsAnswers[soalNo]
+        ? [...pgkbsAnswers[soalNo]]
+        : Array(count).fill(null);
+      current[idx] = val;
+      return current;
+    })();
     setPgkbsAnswers(prev => {
       const current: ("B" | "S" | null)[] = prev[soalNo] ? [...prev[soalNo]] : Array(count).fill(null);
       current[idx] = val;
       return { ...prev, [soalNo]: current };
     });
+    if (autoRevealOnAnswer && nextAnswers.every(answer => answer !== null)) {
+      setRevealedAnswers(prev => {
+        const next = new Set(prev);
+        next.add(soalNo);
+        return next;
+      });
+    }
   };
 
   const handleSelectPGK = (soalNo: number, idx: number) => {
@@ -683,6 +705,9 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                   : type === "pgk" && soal.jawabanPGK
                     ? selectedPGK.length > 0
                     : !!selected;
+                const hasAnyAnswer = type === "pgkbs"
+                  ? bsArr.some(answer => answer !== null)
+                  : hasAnswered;
                 const isCorrect = type === "pgkbs"
                   ? (soal.jawabanBS?.every((ans, i) => bsArr[i] === ans) ?? false)
                   : type === "pgk" && soal.jawabanPGK
@@ -891,15 +916,16 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                           {soal.pernyataan.map((p, pi) => {
                             const userAns = bsArr[pi];
                             const correctAns = soal.jawabanBS?.[pi];
-                            const rowCorrect = isRevealed && userAns === correctAns;
-                            const rowWrong = isRevealed && userAns !== correctAns;
+                            const rowEvaluated = isRevealed || (autoRevealOnAnswer && userAns !== null && userAns !== undefined);
+                            const rowCorrect = rowEvaluated && userAns === correctAns;
+                            const rowWrong = rowEvaluated && userAns !== correctAns;
 
                             return (
                               <div key={pi}
                                 className={`grid grid-cols-[1fr_auto_auto] gap-0 ${pi < soal.pernyataan!.length - 1 ? "border-b" : ""}`}
                                 style={{
                                   borderColor: "rgba(6,182,212,0.1)",
-                                  background: isRevealed
+                                  background: rowEvaluated
                                     ? rowCorrect ? "rgba(34,197,94,0.06)" : "rgba(239,68,68,0.06)"
                                     : "transparent",
                                 }}>
@@ -912,7 +938,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                                   <span className="font-body text-xs text-white/80 leading-snug flex-1 min-w-0">
                                     {renderWithLatex(p)}
                                   </span>
-                                  {isRevealed && (
+                                  {rowEvaluated && (
                                     rowCorrect
                                       ? <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-green-400" />
                                       : <XCircle className="w-3.5 h-3.5 shrink-0 text-red-400" />
@@ -982,8 +1008,8 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                       </div>
                     )}
 
-                    {/* ── Action row: follows Bilangan Bulat's always-available explanation toggle ── */}
-                    <div className="px-5 pb-4 flex flex-col gap-2">
+                    {/* ── Action row: manual reveal remains available for other modules ── */}
+                    {!autoRevealOnAnswer && <div className="px-5 pb-4 flex flex-col gap-2">
                       <button
                         onClick={() => isRevealed ? handleClosePembahasan(soal.no) : handleReveal(soal.no)}
                         className="mt-1 w-full py-2 rounded-lg text-xs font-body font-semibold transition-all border cursor-pointer"
@@ -1012,10 +1038,10 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                           )}
                         </div>
                       )}
-                    </div>
+                    </div>}
 
                     {/* ── Pembahasan ── */}
-                    {isRevealed && soal.pembahasan && (
+                    {(isRevealed || (autoRevealOnAnswer && hasAnyAnswer)) && soal.pembahasan && (
                       <div className="mx-4 mb-4 rounded-xl p-4 animate-slide-up"
                         style={{
                           background: "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05))",
