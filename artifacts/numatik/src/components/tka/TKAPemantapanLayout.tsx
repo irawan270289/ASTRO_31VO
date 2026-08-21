@@ -9,6 +9,14 @@ import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
 import { AsyncImage } from '@/components/ui/async-image';
 
+const SafeInlineMath = ({ math }: { math: string }) => {
+  try {
+    return <InlineMath math={math} throwOnError={false} />;
+  } catch {
+    return <span className="font-mono">{math}</span>;
+  }
+};
+
 export interface MateriSection {
   heading: string;
   content: string;
@@ -93,7 +101,7 @@ const renderWithLatex = (text: string) => {
   const parts = text.split(/(\$[^$]+\$)/g);
   return parts.map((part, index) => {
     if (part.startsWith('$') && part.endsWith('$')) {
-      return <InlineMath key={index} math={part.slice(1, -1)} throwOnError={false} />;
+      return <SafeInlineMath key={index} math={part.slice(1, -1)} />;
     }
     return <span key={index}>{part}</span>;
   });
@@ -319,7 +327,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
           <div className="space-y-3 animate-slide-up">
             {materiSections.map((section, idx) => {
               const color = SECTION_COLORS[idx % SECTION_COLORS.length];
-              const headingText = section.heading.replace(/^[A-Z]\.\s*/, '');
+              const headingText = (section.heading ?? '').replace(/^[A-Z]\.\s*/, '');
               return (
                 <div key={idx} className={`relative rounded-2xl overflow-hidden border ${color.border}`}
                   style={isWhite ? {
@@ -346,7 +354,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                   <div className="px-6 pb-5 pt-1 border-t border-white/5">
                     {section.jsx && <div className="mb-3">{section.jsx}</div>}
                     <div className="font-body text-sm text-white/80 leading-relaxed space-y-0.5">
-                      {section.content.split('\n').map((line, i) => {
+                      {(section.content ?? '').split('\n').map((line, i) => {
                         const trimmed = line.trim();
                         const imgMatch = trimmed.match(/^\[IMAGE:([^|]+)(?:\|(\w+))?\]$/);
                         if (imgMatch) {
@@ -453,7 +461,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                     </div>
 
                     {/* ── PGK: numbered pernyataan list ── */}
-                    {type === "pgk" && soal.pernyataan && (
+                    {type === "pgk" && Array.isArray(soal.pernyataan) && (
                       <div className="px-5 pb-2 space-y-1.5 ml-11">
                         {soal.pernyataan.map((p, pi) => (
                           <div key={pi} className="flex items-start gap-2 text-xs font-body leading-relaxed"
@@ -472,7 +480,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                     )}
 
                     {/* ── PG & PGK: options (correct always highlighted green) ── */}
-                    {(type === "pg" || type === "pgk") && soal.options && soal.options.length > 0 && (
+                    {(type === "pg" || type === "pgk") && Array.isArray(soal.options) && soal.options.length > 0 && (
                       <div className="px-5 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {soal.options.map((opt, j) => {
                           const letter = optionLetters[j];
@@ -523,7 +531,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                     )}
 
                     {/* ── PGKBS: pernyataan B/S table (always shows key) ── */}
-                    {type === "pgkbs" && soal.pernyataan && (
+                    {type === "pgkbs" && Array.isArray(soal.pernyataan) && (
                       <div className="px-5 pb-3 ml-11">
                         <div className="rounded-xl overflow-hidden border"
                           style={{ borderColor: "rgba(6,182,212,0.2)", background: "rgba(6,182,212,0.04)" }}>
