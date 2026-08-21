@@ -420,11 +420,6 @@ const latihanDasar: LatihanSoal[] = latihanDasarAsli
   .filter((soal) => !latihanHapus.has(soal.no))
   .map((soal, index) => ({ ...soal, no: index + 1 }));
 
-const latihanHapus = new Set([4, 19, 21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]);
-const latihanDasar: LatihanSoal[] = latihanDasarData
-  .filter((soal) => !latihanHapus.has(soal.no))
-  .map((soal, index) => ({ ...soal, no: index + 1 }));
-
 const PerbandinganPage = () => (
   <TKAPemantapanLayout
     title="PERBANDINGAN"
