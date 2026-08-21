@@ -151,10 +151,19 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
   const [pgkContohAnswers, setPgkContohAnswers] = useState<Record<number, number[]>>({});
   const [pgkbsContohAnswers, setPgkbsContohAnswers] = useState<Record<number, ("B" | "S" | null)[]>>({});
 
+  const revealAfterAnswer = (soalNo: number) => {
+    setRevealedAnswers(prev => {
+      const next = new Set(prev);
+      next.add(soalNo);
+      return next;
+    });
+  };
+
   const handleSelectAnswer = (soalNo: number, letter: string) => {
     if (revealedAnswers.has(soalNo)) return;
     playPopSound();
     setSelectedAnswers(prev => ({ ...prev, [soalNo]: letter }));
+    revealAfterAnswer(soalNo);
   };
 
   const handleSelectBS = (soalNo: number, idx: number, val: "B" | "S", count: number) => {
@@ -163,11 +172,12 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
     setPgkbsAnswers(prev => {
       const current: ("B" | "S" | null)[] = prev[soalNo] ? [...prev[soalNo]] : Array(count).fill(null);
       current[idx] = val;
+      if (current.every(answer => answer !== null)) revealAfterAnswer(soalNo);
       return { ...prev, [soalNo]: current };
     });
   };
 
-  const handleSelectPGK = (soalNo: number, idx: number) => {
+  const handleSelectPGK = (soalNo: number, idx: number, answerCount?: number) => {
     if (revealedAnswers.has(soalNo)) return;
     playPopSound();
     setPgkAnswers(prev => {
@@ -175,6 +185,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
       const next = current.includes(idx)
         ? current.filter(item => item !== idx)
         : [...current, idx].sort((a, b) => a - b);
+      if (answerCount !== undefined && next.length === answerCount) revealAfterAnswer(soalNo);
       return { ...prev, [soalNo]: next };
     });
   };
@@ -765,7 +776,7 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                             key={pi}
                             type="button"
                             disabled={isRevealed}
-                            onClick={() => soal.jawabanPGK && handleSelectPGK(soal.no, pi)}
+                            onClick={() => soal.jawabanPGK && handleSelectPGK(soal.no, pi, soal.jawabanPGK.length)}
                             className="w-full flex items-start gap-2 text-left text-xs font-body text-white/80 leading-relaxed rounded-lg px-2 py-1 transition-colors"
                             style={{
                               background: isRevealed
@@ -1026,7 +1037,12 @@ const TKAPemantapanLayout = ({ title, backPath = "/tka/modul-pemantapan", materi
                           <span className="font-display text-[10px] font-bold tracking-widest uppercase text-amber-400/80">Pembahasan</span>
                         </div>
                         <div className="font-body text-xs text-white/75 leading-relaxed whitespace-pre-wrap">
-                          {(soal.pembahasan ?? '').split('\n').map((line, i) => (
+                          <p className="mb-1 font-bold text-amber-300">Jawaban</p>
+                          <p className="mb-3">Kunci jawaban ditampilkan di bawah sesuai pilihan yang benar.</p>
+                          <p className="mb-1 font-bold text-amber-300">Tips dan Trik</p>
+                          <p className="mb-3">{(soal.pembahasan ?? '').toLowerCase().includes('senilai') ? <>Susun tabel <InlineMath math="v_1, v_2" /> dengan pasangan <InlineMath math="a,b" /> dan <InlineMath math="c,d" />, lalu gunakan perbandingan senilai: <InlineMath math="ad = cb" />.</> : (soal.pembahasan ?? '').toLowerCase().includes('berbalik nilai') ? <>Susun tabel <InlineMath math="v_1, v_2" /> dengan pasangan <InlineMath math="a,b" /> dan <InlineMath math="c,d" />, lalu gunakan perbandingan berbalik nilai: <InlineMath math="ab = cd" />.</> : <>Tentukan informasi yang diketahui, samakan satuan, lalu pilih rumus yang sesuai.</>}</p>
+                          <p className="mb-1 font-bold text-amber-300">Step by Step Penyelesaian</p>
+                          {(soal.pembahasan ?? '').split('\\n').map((line, i) => (
                             <span key={i}>{i > 0 && <br />}{renderWithLatex(line)}</span>
                           ))}
                         </div>
