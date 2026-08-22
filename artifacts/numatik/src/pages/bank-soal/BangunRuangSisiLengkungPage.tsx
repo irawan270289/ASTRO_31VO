@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { playPopSound } from "@/hooks/useAudio";
 import "katex/dist/katex.min.css";
 import { InlineMath, BlockMath } from "react-katex";
+import { latihanDasar as latihanDasarTKA, brslDasarImages } from "@/pages/OlimpiadeBangunRuangSisiLengkungPage";
+import { brslDasarPembahasan } from "@/data/pembahasan/brslDasar";
 
 const MathText = ({ text, className = "" }: { text: string; className?: string }) => {
   const elements = useMemo(() => {
@@ -48,6 +50,7 @@ interface Question {
   correctAnswer?: string;
   table?: TableData;
   svgKey?: string;
+  imageUrl?: string;
   explanation: { concept: string; steps: string[]; formula?: string; };
 }
 
@@ -2414,6 +2417,46 @@ const soalBangunRuangSisiLengkung: Question[] = [
   },
 ];
 
+const soalBankLamaDipertahankan = new Set([7, 21, 23, 24, 28, 34, 45, 69, 70, 92, 93]);
+
+const getTkaCategory = (soal: string) => {
+  const text = soal.toLowerCase();
+  if (text.includes("tabung") || text.includes("drum") || text.includes("torn") || text.includes("lilin")) {
+    return "TKA MODUL PEMANTAPAN – Tabung";
+  }
+  if (text.includes("bola") || text.includes("kubah") || text.includes("belahan")) {
+    return "TKA MODUL PEMANTAPAN – Bola";
+  }
+  if (text.includes("kerucut") || text.includes("topi") || text.includes("tumpeng")) {
+    return "TKA MODUL PEMANTAPAN – Kerucut";
+  }
+  return "TKA MODUL PEMANTAPAN – Gabungan";
+};
+
+const soalTkaUntukBank: Question[] = latihanDasarTKA.map((soal) => {
+  const pembahasan = brslDasarPembahasan[soal.no];
+  return {
+    id: 1000 + soal.no,
+    type: "PG",
+    difficulty: soal.no <= 6 ? "Mudah" : soal.no <= 24 ? "Sedang" : "Sulit",
+    category: getTkaCategory(soal.soal),
+    question: soal.soal,
+    options: soal.options,
+    correctAnswer: pembahasan?.jawaban,
+    imageUrl: brslDasarImages[soal.no],
+    explanation: {
+      concept: pembahasan?.konsepTrik ?? "Gunakan konsep bangun ruang sisi lengkung yang sesuai.",
+      steps: pembahasan?.stepByStep ? pembahasan.stepByStep.split("\n") : ["Identifikasi data yang diketahui.", "Gunakan rumus yang sesuai.", "Periksa kembali satuan dan hasilnya."],
+      formula: pembahasan?.tips,
+    },
+  };
+});
+
+const soalBankAktif: Question[] = [
+  ...soalBangunRuangSisiLengkung.filter((soal) => soalBankLamaDipertahankan.has(soal.id)),
+  ...soalTkaUntukBank,
+].map((soal, index) => ({ ...soal, id: index + 1 }));
+
 /* ══════════════════════════════════════════════════════
    UI COMPONENTS
 ══════════════════════════════════════════════════════ */
@@ -2456,6 +2499,13 @@ const SoalCard = ({ soal }: { soal: Question }) => {
           <div className="text-foreground font-body text-sm md:text-base leading-relaxed whitespace-pre-line">
             <MathText text={soal.question} />
           </div>
+          {soal.imageUrl && (
+            <img
+              src={soal.imageUrl}
+              alt={`Gambar soal ${soal.id}`}
+              className="mx-auto w-full max-w-sm rounded-lg border border-border/40 bg-background p-2 mt-3"
+            />
+          )}
           {soal.svgKey && visualMap[soal.svgKey] && <div className="mt-3">{visualMap[soal.svgKey]}</div>}
           {soal.table && <TableVisual table={soal.table} />}
         </div>
@@ -2555,13 +2605,6 @@ const SoalCard = ({ soal }: { soal: Question }) => {
 ══════════════════════════════════════════════════════ */
 type Topik = "Unsur" | "Luas Permukaan" | "Volume" | "Aplikasi";
 
-const topikOrder: Record<Topik, number> = {
-  "Unsur": 0,
-  "Luas Permukaan": 1,
-  "Volume": 2,
-  "Aplikasi": 3,
-};
-
 const topikColor: Record<Topik, string> = {
   "Unsur":          "bg-sky-500/20 text-sky-300 border-sky-500/40",
   "Luas Permukaan": "bg-violet-500/20 text-violet-300 border-violet-500/40",
@@ -2634,33 +2677,22 @@ const BankSoalBangunRuangSisiLengkungPage = () => {
   const [filterBangun, setFilterBangun] = useState<Bangun | "Semua">("Semua");
   const [showFilter, setShowFilter] = useState(false);
 
-  const diffOrder: Record<Difficulty, number> = { "Mudah": 0, "Sedang": 1, "Sulit": 2 };
-
   const filtered = useMemo(() => {
-    const arr = soalBangunRuangSisiLengkung.filter(s =>
+    return soalBankAktif.filter(s =>
       (filterDifficulty === "Semua" || s.difficulty === filterDifficulty) &&
       (filterType === "Semua" || s.type === filterType) &&
       (filterTopik === "Semua" || getTopik(s) === filterTopik) &&
       (filterBangun === "Semua" || getBangun(s) === filterBangun)
     );
-    return [...arr].sort((a, b) => {
-      const ta = topikOrder[getTopik(a)];
-      const tb = topikOrder[getTopik(b)];
-      if (ta !== tb) return ta - tb;
-      const da = diffOrder[a.difficulty];
-      const db = diffOrder[b.difficulty];
-      if (da !== db) return da - db;
-      return a.id - b.id;
-    });
   }, [filterDifficulty, filterType, filterTopik, filterBangun]);
 
   const counts = {
-    Mudah: soalBangunRuangSisiLengkung.filter(s => s.difficulty === "Mudah").length,
-    Sedang: soalBangunRuangSisiLengkung.filter(s => s.difficulty === "Sedang").length,
-    Sulit: soalBangunRuangSisiLengkung.filter(s => s.difficulty === "Sulit").length,
-    PG: soalBangunRuangSisiLengkung.filter(s => s.type === "PG").length,
-    MCMA: soalBangunRuangSisiLengkung.filter(s => s.type === "MCMA").length,
-    BS: soalBangunRuangSisiLengkung.filter(s => s.type === "Benar/Salah").length,
+    Mudah: soalBankAktif.filter(s => s.difficulty === "Mudah").length,
+    Sedang: soalBankAktif.filter(s => s.difficulty === "Sedang").length,
+    Sulit: soalBankAktif.filter(s => s.difficulty === "Sulit").length,
+    PG: soalBankAktif.filter(s => s.type === "PG").length,
+    MCMA: soalBankAktif.filter(s => s.type === "MCMA").length,
+    BS: soalBankAktif.filter(s => s.type === "Benar/Salah").length,
   };
 
   return (
@@ -2688,7 +2720,7 @@ const BankSoalBangunRuangSisiLengkungPage = () => {
           <span className="text-xs px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-body">{counts.PG} PG</span>
           <span className="text-xs px-3 py-1 rounded-full bg-violet-500/20 text-violet-400 border border-violet-500/30 font-body">{counts.MCMA} MCMA</span>
           <span className="text-xs px-3 py-1 rounded-full bg-fuchsia-500/20 text-fuchsia-400 border border-fuchsia-500/30 font-body">{counts.BS} B/S</span>
-          <span className="text-xs px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 font-body">Total: {soalBangunRuangSisiLengkung.length} Soal</span>
+          <span className="text-xs px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 font-body">Total: {soalBankAktif.length} Soal</span>
         </div>
 
         <div className="mb-6">
@@ -2753,7 +2785,7 @@ const BankSoalBangunRuangSisiLengkungPage = () => {
                 </div>
                 <p className="text-[10px] text-white/30 mt-1.5 font-body">Soal selalu diurutkan: Unsur → Luas Permukaan → Volume → Aplikasi</p>
               </div>
-              <p className="text-xs text-white/40 font-body">Menampilkan {filtered.length} dari {soalBangunRuangSisiLengkung.length} soal</p>
+              <p className="text-xs text-white/40 font-body">Menampilkan {filtered.length} dari {soalBankAktif.length} soal</p>
             </div>
           )}
         </div>

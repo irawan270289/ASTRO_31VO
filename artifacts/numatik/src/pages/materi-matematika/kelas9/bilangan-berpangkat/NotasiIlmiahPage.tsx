@@ -739,49 +739,63 @@ const NotasiIlmiahPage = () => {
             {isOpen("c1") && (
               <div className="px-5 pb-5 space-y-6">
                 <ExBlock level="easy" n={1}
-                  soal={<>{t.c1_easy_q} <strong>57.000.000</strong> {t.c1_easy_q2}</>}
-                  solution={<>
-                    <p><strong>{t.step} 1:</strong> {t.c1_easy_s1}</p>
-                    <Dark><p className="text-sm text-white">57.000.000 → <span className="text-yellow-300 font-bold">5,7</span></p></Dark>
-                    <p><strong>{t.step} 2:</strong> {t.c1_easy_s2}</p>
-                    <Dark>
-                      <p className="text-sm text-white/70 mb-1">{t.c1_easy_note1}<span className="text-cyan-300">{t.c1_easy_note2}</span> {t.c1_easy_note3} <span className="text-cyan-300 font-bold">{t.c1_easy_note4}</span> {t.c1_easy_note5}</p>
-                      <BlockMath math="57.000.000 = 5{,}7 \times 10^7" />
-                    </Dark>
-                    <p><strong className="text-primary">{t.hasil} <InlineMath math="5{,}7 \times 10^7" /></strong></p>
-                  </>}
-                />
-                <ExBlock level="med" n={2}
-                  soal={<>{t.c1_med_q} <InlineMath math="4{,}05 \times 10^{-4}" /> {t.c1_med_q2}</>}
-                  solution={<>
-                    <p><strong>{t.step} 1:</strong> {t.c1_med_s1} (<InlineMath math="n = -4" />) {t.c1_med_s1b} <em>{t.c1_med_s1c}</em> {t.c1_med_s1d}</p>
-                    <Dark>
-                      <p className="text-xs text-white/60">{t.c1_med_note}</p>
-                      <BlockMath math="4{,}05 \times 10^{-4} = 0{,}000405" />
-                    </Dark>
-                    <p><strong className="text-primary">{t.hasil} 0,000405</strong></p>
-                  </>}
-                />
-                <ExBlock level="hard" n={3}
                   soal={<>
-                    {t.c1_hard_q}<br />
-                    <InlineMath math="3{,}2 \times 10^5" />,&nbsp;
-                    <InlineMath math="8{,}1 \times 10^4" />,&nbsp;
-                    <InlineMath math="2{,}9 \times 10^5" />,&nbsp;
-                    <InlineMath math="9{,}9 \times 10^3" />
+                    <p className="font-semibold mb-3">Nyatakan bilangan dalam bentuk notasi ilmiah!</p>
+                    <ol className="list-[lower-alpha] list-inside space-y-1">
+                      <li>57.000.000</li>
+                      <li>234.000.000.000</li>
+                      <li>0,000002</li>
+                      <li>0,000087</li>
+                      <li><InlineMath math="12 \times 10^5" /></li>
+                      <li><InlineMath math="0{,}5 \times 10^{-4}" /></li>
+                      <li><InlineMath math="576 \times 10^{-10}" /></li>
+                      <li>576.689.444.000 <span className="text-yellow-300">(gunakan pembulatan sampai 2 desimal)</span></li>
+                      <li>145.122.334.476.348 <span className="text-yellow-300">(gunakan pembulatan sampai 2 desimal)</span></li>
+                    </ol>
                   </>}
                   solution={<>
-                    <p><strong>{t.step} 1:</strong> {t.c1_hard_s1}</p>
+                    <p className="text-white/80">Bentuk umum notasi ilmiah adalah <InlineMath math="a \times 10^n" />, dengan syarat <InlineMath math="1 \le a < 10" />. Letakkan koma setelah angka pertama yang bukan nol, lalu hitung banyak pergeseran koma.</p>
                     <Dark>
-                      <div className="space-y-1 text-xs">
-                        <p><InlineMath math="9{,}9 \times 10^3" /> = 9.900</p>
-                        <p><InlineMath math="8{,}1 \times 10^4" /> = 81.000</p>
-                        <p><InlineMath math="2{,}9 \times 10^5" /> = 290.000</p>
-                        <p><InlineMath math="3{,}2 \times 10^5" /> = 320.000</p>
+                      <div className="space-y-3 text-sm">
+                        <div>
+                          <p><strong>a.</strong> 57.000.000 → koma digeser 7 tempat ke kiri.</p>
+                          <p className="pl-5"><InlineMath math="57.000.000 = 5{,}7 \times 10^7" /></p>
+                        </div>
+                        <div>
+                          <p><strong>b.</strong> 234.000.000.000 → koma digeser 11 tempat ke kiri.</p>
+                          <p className="pl-5"><InlineMath math="234.000.000.000 = 2{,}34 \times 10^{11}" /></p>
+                        </div>
+                        <div>
+                          <p><strong>c.</strong> 0,000002 → koma digeser 6 tempat ke kanan untuk memperoleh 2, sehingga pangkatnya negatif.</p>
+                          <p className="pl-5"><InlineMath math="0{,}000002 = 2 \times 10^{-6}" /></p>
+                        </div>
+                        <div>
+                          <p><strong>d.</strong> 0,000087 → koma digeser 5 tempat ke kanan untuk memperoleh 8,7.</p>
+                          <p className="pl-5"><InlineMath math="0{,}000087 = 8{,}7 \times 10^{-5}" /></p>
+                        </div>
+                        <div>
+                          <p><strong>e.</strong> Koefisien 12 belum memenuhi syarat, jadi koma digeser 1 tempat ke kiri dan pangkat ditambah 1.</p>
+                          <p className="pl-5"><InlineMath math="12 \times 10^5 = 1{,}2 \times 10^6" /></p>
+                        </div>
+                        <div>
+                          <p><strong>f.</strong> Koefisien 0,5 belum memenuhi syarat, jadi koma digeser 1 tempat ke kanan dan pangkat dikurangi 1.</p>
+                          <p className="pl-5"><InlineMath math="0{,}5 \times 10^{-4} = 5 \times 10^{-5}" /></p>
+                        </div>
+                        <div>
+                          <p><strong>g.</strong> Koefisien 576 diubah menjadi 5,76 dengan menggeser koma 2 tempat ke kiri.</p>
+                          <p className="pl-5"><InlineMath math="576 \times 10^{-10} = 5{,}76 \times 10^{-8}" /></p>
+                        </div>
+                        <div>
+                          <p><strong>h.</strong> Koma digeser 11 tempat ke kiri: 5,76689444. Dibulatkan sampai 2 desimal menjadi 5,77.</p>
+                          <p className="pl-5"><InlineMath math="576.689.444.000 \approx 5{,}77 \times 10^{11}" /></p>
+                        </div>
+                        <div>
+                          <p><strong>i.</strong> Koma digeser 14 tempat ke kiri: 1,45122334476348. Dibulatkan sampai 2 desimal menjadi 1,45.</p>
+                          <p className="pl-5"><InlineMath math="145.122.334.476.348 \approx 1{,}45 \times 10^{14}" /></p>
+                        </div>
                       </div>
                     </Dark>
-                    <p><strong>{t.step} 2:</strong> {t.c1_hard_s2} (<InlineMath math="10^5" />){t.c1_hard_s2b}</p>
-                    <Dark><BlockMath math="9{,}9\times10^3 < 8{,}1\times10^4 < 2{,}9\times10^5 < 3{,}2\times10^5" /></Dark>
+                    <p><strong className="text-primary">{t.hasil}</strong> Semua bilangan telah ditulis dalam bentuk <InlineMath math="a \times 10^n" /> dengan <InlineMath math="1 \le a < 10" />.</p>
                   </>}
                 />
               </div>
