@@ -109,18 +109,15 @@ const latihanDasar: LatihanSoal[] = [
   { no: 29, soal: "Gambar berikut adalah pola segitiga.\nBanyak segitiga satu-satuan pada pola ke-7 adalah ....", options: ["A. 28", "B. 36", "C. 42", "D. 49"] },
   { no: 30, soal: "Perhatikan gambar pola berikut!\nBanyak lingkaran pada pola ke-10 adalah ....", options: ["A. 99 buah", "B. 104 buah", "C. 115 buah", "D. 120 buah"] },
   { no: 31, soal: "Perhatikanlah pola berikut.\nBanyak lingkaran pada pola ke-30 adalah ....", options: ["A. 39", "B. 41", "C. 57", "D. 59"] },
-  { no: 32, soal: "Hitunglah jumlah tak hingga dari deret geometri berikut:\n$18 + 6 + 2 + \\frac{2}{3} + ...$", options: ["A. 24", "B. 27", "C. 36", "D. Tak hingga"] },
-  { no: 33, soal: "Jumlah tak hingga dari deret:\n$\\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \\frac{1}{16} + ...$", options: ["A. 4", "B. 5", "C. 1", "D. Deret divergen (tidak memiliki jumlah)"] },
-  { no: 34, soal: "Sebuah bola tenis dijatuhkan dari ketinggian 12 meter. Setelah menyentuh lantai, bola memantul kembali dengan ketinggian $\\frac{2}{3}$ dari ketinggian sebelumnya. Pantulan ini terjadi terus-menerus hingga bola berhenti. Total panjang lintasan yang ditempuh bola tersebut adalah ....", options: ["A. 24 m", "B. 36 m", "C. 48 m", "D. 60 m"] },
-  { no: 35, soal: "Bentuk sederhana dari $\\left(1-\\frac{1}{2^2}\\right)\\left(1-\\frac{1}{3^2}\\right)\\left(1-\\frac{1}{4^2}\\right)...\\left(1-\\frac{1}{2022^2}\\right)$ adalah ....", options: ["A. $\\frac{2023}{4044}$", "B. $\\frac{1011}{2022}$", "C. $\\frac{2023}{2022}$", "D. $\\frac{1}{4044}$"] },
-  { no: 36, soal: "Nilai dari $\\frac{1}{2} + \\frac{1}{6} + \\frac{1}{12} + \\frac{1}{20} + ... + \\frac{1}{420}$ adalah ....", options: ["A. $\\frac{21}{20}$", "B. $\\frac{20}{21}$", "C. $\\frac{21}{10}$", "D. $\\frac{10}{21}$"] },
-  { no: 37, soal: "Nilai dari $\\frac{1}{1 \\cdot 4} + \\frac{1}{4 \\cdot 7} + \\frac{1}{7 \\cdot 10} + ... + \\frac{1}{1999 \\cdot 2002}$ adalah ....", options: ["A. $\\frac{1}{3}$", "B. $\\frac{667}{2002}$", "C. $\\frac{2001}{6006}$", "D. $\\frac{1}{2002}$"] },
-  { no: 38, soal: "Perhatikan persamaan berikut.\n$(2+1)(2^2+1)(2^4+1)(2^8+1)...(2^{2048}+1) = 2^a - b$\nNilai a dan b yang memenuhi persamaan tersebut adalah ....", options: ["A. $a = 4096,\\ b = 1$", "B. $a = 2048,\\ b = 1$", "C. $a = 4096,\\ b = 3$", "D. $a = 4095,\\ b = 1$"] },
-  { no: 39, soal: "Hasil dari $\\sqrt{1+\\frac{1}{3}} \\cdot \\sqrt{1+\\frac{1}{4}} \\cdot \\sqrt{1+\\frac{1}{5}} \\cdot ... \\cdot \\sqrt{1+\\frac{1}{2018}}$ adalah ....", options: ["A. $\\sqrt{672}$", "B. $\\sqrt{673}$", "C. $\\sqrt{2018}$", "D. $\\sqrt{2019}$"] },
-  { no: 40, soal: "Perhatikan bentuk berikut:\n$\\left(1-\\frac{1}{4}\\right)\\left(1-\\frac{1}{9}\\right)\\left(1-\\frac{1}{16}\\right)...\\left(1-\\frac{1}{n^2}\\right)$\nNilai dari bentuk di atas adalah ....", options: ["A. $\\frac{n+1}{2n}$", "B. $\\frac{n+1}{2}$", "C. $\\frac{n}{2(n+1)}$", "D. $\\frac{2n}{n+1}$"] },
-  { no: 41, soal: "Nilai dari $\\frac{1}{1 \\cdot 2} + \\frac{1}{2 \\cdot 3} + \\frac{1}{3 \\cdot 4} + ... + \\frac{1}{n(n+1)}$ adalah ....", options: ["A. $\\frac{n}{n+1}$", "B. $\\frac{n+1}{n}$", "C. $\\frac{1}{n(n+1)}$", "D. $\\frac{n}{2(n+1)}$"] },
-  { no: 42, soal: "Tentukan nilai dari\n$\\frac{1}{1} + \\frac{1}{1+2} + \\frac{1}{1+2+3} + \\frac{1}{1+2+3+4} + ... + \\frac{1}{1+2+3+...+2024}$", options: ["A. $\\frac{4048}{2025}$", "B. $\\frac{2024}{2025}$", "C. $\\frac{4048}{2024}$", "D. $\\frac{2023}{2025}$"] },
-];
+  { no: 26, soal: "OSN Matematika 2019 Tingkat Kota\nBilangan tadutima adalah bilangan bulat positif yang bukan kelipatan 2, 3, atau 5. Banyak bilangan bulat positif kurang dari 1001 yang merupakan bilangan tadutima adalah ...", options: ["A. 333", "B. 266", "C. 233", "D. 167"] },
+  { no: 27, soal: "OSN Matematika 2019 Tingkat Kota\nDiketahui 20 suku pertama suatu barisan aritmetika adalah 1390. Jika suku pertama dari barisan tersebut adalah 3, selisih dari dua suku berurutan di barisan tersebut adalah ...", options: ["A. 7", "B. 17", "C. 21", "D. 24"] },
+  { no: 28, soal: "OSN Matematika 2020 Tingkat Kota\nJumlah n suku pertama suatu deret aritmetika adalah 450. Jika suku pertama adalah n dan suku ke-n adalah 3, maka selisih barisan tersebut adalah ...", options: ["A. $\\frac{13}{7}$", "B. $\\frac{15}{7}$", "C. $\\frac{13}{11}$", "D. $\\frac{15}{11}$"] },
+  { no: 29, soal: "OSN Matematika 2020 Tingkat Kota\nPerhatikan barisan bilangan berikut.\n1, 2, 4, 8, 15, 26, ?, ?, ?, ...\nTiga bilangan selanjutnya berturut-turut adalah ...", options: ["A. 37, 49, 71", "B. 37, 61, 99", "C. 42, 58, 74", "D. 42, 64, 93"] },
+  { no: 30, soal: "OSN Matematika 2021 Tingkat Kota\nMisalkan B menyatakan barisan bilangan bulat yang suku-sukunya $b_1, b_2, b_3, b_4, ...$ dan f(B) menyatakan barisan bilangan bulat yang suku-sukunya $b_1 - b_2, b_2 - b_3, b_3 - b_4, ...$ Jika semua suku dari barisan f(f(B)) adalah bilangan bulat c, dengan c = 3, dan diketahui $b_{21} \\times b_{42} = b_{21} + b_{42} = 0$, maka nilai dari $b_2$ adalah ...", options: ["A. 90", "B. 760", "C. 1140", "D. 1230"] },
+  { no: 31, soal: "OSN Matematika 2022 Tingkat Kota\nDiketahui suatu barisan aritmetika $a_1, a_2, a_3, ...$ dengan semua sukunya bilangan bulat, $a_1$ habis dibagi 3, $a_2$ habis dibagi 5 dan $a_3$ habis dibagi 7. Jika $a_1 + a_2 + a_3 = 405$ dan $a_1 > 105$, maka nilai k terkecil sedemikian $a_k > 1000$ adalah ...", options: ["A. 74", "B. 75", "C. 76", "D. 77"] },
+  ];
+
+const gambarPolaOlimpiade = Object.fromEntries([27, 28, 29, 30, 31].map((no) => [no, <img src="https://drive.google.com/thumbnail?id=1f-EBr1I4CaOwcZbixjEMgb5NxepLfmoM&sz=w800" alt={`Gambar pola soal ${no}`} className="my-2 max-w-xs w-full rounded" />]));
 
 const PolaBilanganPage = () => (
   <TKAPemantapanLayout
@@ -128,6 +125,7 @@ const PolaBilanganPage = () => (
     materiSections={materiSections}
     contohSoal={contohSoal}
     latihanDasar={latihanDasar}
+    gambarMap={gambarPolaOlimpiade}
   />
 );
 
