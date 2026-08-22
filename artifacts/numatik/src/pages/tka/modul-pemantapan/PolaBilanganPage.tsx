@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import TKAPemantapanLayout from "@/components/tka/TKAPemantapanLayout";
 import type { MateriSection, LatihanSoal } from "@/components/tka/TKAPemantapanLayout";
 
@@ -77,6 +78,42 @@ const contohSoal: LatihanSoal[] = [
   },
 ];
 
+const patternSvg = (kind: "squares" | "circles" | "triangles" | "rectangles" | "lShape") => {
+  const patterns = [1, 2, 3, 4];
+  return (
+    <svg viewBox="0 0 360 105" className="w-full max-w-lg h-auto" role="img" aria-label="Gambar pola bilangan">
+      {patterns.map((n, index) => {
+        const x = 12 + index * 86;
+        const unit = kind === "triangles" ? 18 : 13;
+        const elements: ReactNode[] = [];
+        if (kind === "triangles") {
+          const h = n * unit * 0.86;
+          elements.push(<polygon key="outline" points={`${x + n * unit / 2},${8 + (4 * unit * 0.86 - h)} ${x},${8 + 4 * unit * 0.86} ${x + n * unit},${8 + 4 * unit * 0.86}`} fill="none" stroke="currentColor" strokeWidth="1.5" />);
+          for (let row = 0; row < n; row++) for (let col = 0; col <= row; col++) elements.push(<circle key={`${row}-${col}`} cx={x + n * unit / 2 + (col - row / 2) * unit} cy={8 + 4 * unit * 0.86 - (row + 0.5) * unit * 0.86} r="3" fill="currentColor" />);
+        } else {
+          const rows = kind === "lShape" ? n : kind === "rectangles" ? n : kind === "circles" ? n : 2;
+          const cols = kind === "rectangles" ? n + 2 : kind === "squares" ? n : kind === "circles" ? n : n;
+          for (let row = 0; row < rows; row++) for (let col = 0; col < cols; col++) {
+            if (kind === "lShape" && row !== rows - 1 && col !== cols - 1) continue;
+            const cx = x + col * unit + 6;
+            const cy = 72 - row * unit;
+            elements.push(kind === "squares" ? <rect key={`${row}-${col}`} x={cx - 6} y={cy - 6} width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" /> : <circle key={`${row}-${col}`} cx={cx} cy={cy} r="4" fill="currentColor" />);
+          }
+        }
+        return <g key={n}>{elements}<text x={x + 24} y="96" textAnchor="middle" fontSize="11" fill="currentColor">{n}</text></g>;
+      })}
+    </svg>
+  );
+};
+
+const polaBilanganSoalSvgMap: Record<string, ReactNode> = {
+  soal27: patternSvg("squares"),
+  soal28: patternSvg("circles"),
+  soal29: patternSvg("triangles"),
+  soal30: patternSvg("rectangles"),
+  soal31: patternSvg("lShape"),
+};
+
 const latihanDasar: LatihanSoal[] = [
   { no: 1, soal: "Diketahui barisan bilangan aritmetika sebagai berikut.\n$-8, -4, 0, 4, 8, 12, n, 20, 24$\nNilai n yang memenuhi adalah ....", options: ["A. 10", "B. 14", "C. 16", "D. 18"] },
   { no: 2, soal: "Tiga suku berikutnya dari 1, 3, 5, 8, 9, 13, …, …., … adalah ....", options: ["A. 13, 18, 17", "B. 13, 17, 18", "C. 14, 17, 18", "D. 14, 18, 18"] },
@@ -103,12 +140,12 @@ const latihanDasar: LatihanSoal[] = [
   { no: 23, soal: "Suku ke-40 dari 3, 5, 9, 15, 23, … adalah ....", options: ["A. 1560", "B. 1563", "C. 1600", "D. 1603"] },
   { no: 24, soal: "Tiga suku berikutnya dari 1, 3, 6, 7, 11, 11, … adalah ....", options: ["A. 13, 18, 17", "B. 13, 17, 18", "C. 16, 15, 21", "D. 16, 15, 20"] },
   { no: 25, soal: "Rumus suku ke-n barisan adalah $U_n = 2n(n-1)$. Hasil dari $U_9 - U_7$ adalah ....", options: ["A. 80", "B. 70", "C. 60", "D. 50"] },
-  { no: 26, soal: "Rumus suku ke-n dari barisan bilangan 0, 4, 10, 18, … adalah ....", options: ["A. $\\frac{1}{2}n(n+1)$", "B. $2n(n+1)$", "C. $(n-1)(n+2)$", "D. $(n+1)(n+2)$"] },
-  { no: 27, soal: "Perhatikan gambar berikut!\nBanyak persegi satuan pada pola ke-19 adalah ....", options: ["A. 36", "B. 38", "C. 40", "D. 42"] },
-  { no: 28, soal: "Perhatikan gambar pola berikut.\nBanyak lingkaran pada pola ke-15 adalah ....", options: ["A. 105", "B. 120", "C. 210", "D. 240"] },
-  { no: 29, soal: "Gambar berikut adalah pola segitiga.\nBanyak segitiga satu-satuan pada pola ke-7 adalah ....", options: ["A. 28", "B. 36", "C. 42", "D. 49"] },
-  { no: 30, soal: "Perhatikan gambar pola berikut!\nBanyak lingkaran pada pola ke-10 adalah ....", options: ["A. 99 buah", "B. 104 buah", "C. 115 buah", "D. 120 buah"] },
-  { no: 31, soal: "Perhatikanlah pola berikut.\nBanyak lingkaran pada pola ke-30 adalah ....", options: ["A. 39", "B. 41", "C. 57", "D. 59"] },
+  { no: 26, soal: "OSN Matematika 2019 Tingkat Kota\nBilangan tadutima adalah bilangan bulat positif yang bukan kelipatan 2, 3, atau 5. Banyak bilangan bulat positif kurang dari 1001 yang merupakan bilangan tadutima adalah ...", options: ["A. 333", "B. 266", "C. 233", "D. 167"] },
+  { no: 27, soal: "OSN Matematika 2019 Tingkat Kota\nDiketahui 20 suku pertama suatu barisan aritmetika adalah 1390. Jika suku pertama dari barisan tersebut adalah 3, selisih dari dua suku berurutan di barisan tersebut adalah ...", options: ["A. 7", "B. 17", "C. 21", "D. 24"], soalSvg: "soal27" },
+  { no: 28, soal: "OSN Matematika 2020 Tingkat Kota\nJumlah n suku pertama suatu deret aritmetika adalah 450. Jika suku pertama adalah n dan suku ke-n adalah 3, maka selisih barisan tersebut adalah ...", options: ["A. $\\frac{13}{7}$", "B. $\\frac{15}{7}$", "C. $\\frac{13}{11}$", "D. $\\frac{15}{11}$"], soalSvg: "soal28" },
+  { no: 29, soal: "OSN Matematika 2020 Tingkat Kota\nPerhatikan barisan bilangan berikut.\n1, 2, 4, 8, 15, 26, ?, ?, ?, ...\nTiga bilangan selanjutnya berturut-turut adalah ...", options: ["A. 37, 49, 71", "B. 37, 61, 99", "C. 42, 58, 74", "D. 42, 64, 93"], soalSvg: "soal29" },
+  { no: 30, soal: "OSN Matematika 2021 Tingkat Kota\nMisalkan B menyatakan barisan bilangan bulat yang suku-sukunya $b_1, b_2, b_3, b_4, ...$ dan f(B) menyatakan barisan bilangan bulat yang suku-sukunya $b_1 - b_2, b_2 - b_3, b_3 - b_4, ...$ Jika semua suku dari barisan f(f(B)) adalah bilangan bulat c, dengan c = 3, dan diketahui $b_{21} \\times b_{42} = b_{21} + b_{42} = 0$, maka nilai dari $b_2$ adalah ...", options: ["A. 90", "B. 760", "C. 1140", "D. 1230"], soalSvg: "soal30" },
+  { no: 31, soal: "OSN Matematika 2022 Tingkat Kota\nDiketahui suatu barisan aritmetika $a_1, a_2, a_3, ...$ dengan semua sukunya bilangan bulat, $a_1$ habis dibagi 3, $a_2$ habis dibagi 5 dan $a_3$ habis dibagi 7. Jika $a_1 + a_2 + a_3 = 405$ dan $a_1 > 105$, maka nilai k terkecil sedemikian $a_k > 1000$ adalah ...", options: ["A. 74", "B. 75", "C. 76", "D. 77"], soalSvg: "soal31" },
   { no: 32, soal: "Hitunglah jumlah tak hingga dari deret geometri berikut:\n$18 + 6 + 2 + \\frac{2}{3} + ...$", options: ["A. 24", "B. 27", "C. 36", "D. Tak hingga"] },
   { no: 33, soal: "Jumlah tak hingga dari deret:\n$\\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \\frac{1}{16} + ...$", options: ["A. 4", "B. 5", "C. 1", "D. Deret divergen (tidak memiliki jumlah)"] },
   { no: 34, soal: "Sebuah bola tenis dijatuhkan dari ketinggian 12 meter. Setelah menyentuh lantai, bola memantul kembali dengan ketinggian $\\frac{2}{3}$ dari ketinggian sebelumnya. Pantulan ini terjadi terus-menerus hingga bola berhenti. Total panjang lintasan yang ditempuh bola tersebut adalah ....", options: ["A. 24 m", "B. 36 m", "C. 48 m", "D. 60 m"] },
@@ -128,6 +165,7 @@ const PolaBilanganPage = () => (
     materiSections={materiSections}
     contohSoal={contohSoal}
     latihanDasar={latihanDasar}
+    soalSvgMap={polaBilanganSoalSvgMap}
   />
 );
 
